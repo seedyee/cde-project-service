@@ -1,34 +1,77 @@
 package io.cde.project.domain;
 
+import java.io.Serializable;
+import java.util.List;
+
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 /**
  * @author lcl
  *
  */
-public class Member {
+@Document(collection = "account")
+public class Member implements Serializable{
 	
+	/**
+	 * 序列化id
+	 */
+	private static final long serialVersionUID = -3745206453944050818L;
+
 	/**
 	 * 用户id
 	 */
-	private String accountId;
+	@Id
+	private String id;
 
 	/**
 	 * 项目成员名(用户名)
 	 */
-	private String principal;
+	private String name;
+	
+	/**
+	 * 用户关注的项目的id集合
+	 */
+	@JsonIgnore
+	private List<String> watchedProjects;
+	
+	/**
+	 * 用户收藏的项目的id集合
+	 */
+	@JsonIgnore
+	private List<String> collectProjects;
 
-	public String getAccountId() {
-		return accountId;
+	public String getId() {
+		return id;
 	}
 
-	public void setAccountId(String accountId) {
-		this.accountId = accountId;
+	public void setId(String id) {
+		this.id = id;
 	}
 
-	public String getPrincipal() {
-		return principal;
+	public String getName() {
+		return name;
 	}
 
-	public void setPrincipal(String principal) {
-		this.principal = principal;
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public List<String> getWatchedProjects() {
+		return watchedProjects;
+	}
+
+	public void setWatchedProjects(List<String> watchedProjects) {
+		this.watchedProjects = watchedProjects;
+	}
+
+	public List<String> getCollectProjects() {
+		return collectProjects;
+	}
+
+	public void setCollectProjects(List<String> collectProjects) {
+		this.collectProjects = collectProjects;
 	}
 }
